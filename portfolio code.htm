@@ -35,6 +35,29 @@
       padding: 48px 0 72px;
     }
 
+    .top-nav {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+
+    .nav-btn {
+      border: 1px solid #334155;
+      border-radius: 999px;
+      padding: 8px 14px;
+      background: rgba(2, 6, 23, 0.45);
+      color: #cbd5e1;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .nav-btn.active {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(34, 211, 238, 0.08);
+    }
+
     .card {
       background: linear-gradient(180deg, rgba(17, 24, 39, 0.96), rgba(17, 24, 39, 0.85));
       border: 1px solid var(--border);
@@ -107,53 +130,77 @@
       font-size: 0.9rem;
       margin-top: 28px;
     }
+
+    .page { display: none; }
+    .page.active { display: block; }
   </style>
 </head>
 <body>
   <main class="container">
-    <section class="card">
-      <h1>Christopher Yacoubian</h1>
-      <p class="muted">Developer building practical projects and improving every week.</p>
-      <div class="chips">
-        <span class="chip">Python</span>
-        <span class="chip">HTML</span>
-        <span class="chip">CSS</span>
-        <span class="chip">JavaScript</span>
-      </div>
+    <nav class="top-nav" aria-label="Portfolio Pages">
+      <button class="nav-btn active" data-page="home">About me</button>
+      <button class="nav-btn" data-page="accomplishments">Accomplishments</button>
+      <button class="nav-btn" data-page="goals">Goals</button>
+    </nav>
+
+    <section class="page active" id="home">
+      <section class="card">
+        <h1>Christopher Yacoubian</h1>
+        <p class="muted">A new vibe coder creating projects and improving every week.</p>
+        <div class="chips">
+          <span class="chip">Python</span>
+          <span class="chip">HTML</span>
+          <span class="chip">CSS</span>
+          <span class="chip">JavaScript</span>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>About Me</h2>
+        <p>
+          Im a young vibe coder that is trying to learn about the future of Ai and its potential in the future.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2>Projects</h2>
+
+        <article class="project">
+          <h3>Portfolio Website</h3>
+          <p>This project is currently what you are looking at and is my second project using vibe coding.</p>
+        </article>
+
+        <article class="project">
+          <h3>First Coding Game</h3>
+          <p>I created a video that consits of falling blocks that need to be dodged, while trying to get the highest score/time.</p>
+        </article>
+      </section>
+
+      <p class="footer">This project is created by vibe coding.</p>
     </section>
 
-    <section class="card">
-      <h2>About Me</h2>
-      <p>
-        I am focused on creating simple, useful software. I like learning by building,
-        shipping, and improving projects in public.
-      </p>
+    <section class="page" id="accomplishments">
+      <section class="card">
+        <h2>Accomplishments</h2>
+        <article class="project">
+          <h3>Memecoins</h3>
+          <p>i learned how to trade memecoins and trading crypto currencies.</p>
+        </article>
+        <article class="project">
+          <h3>Ai Vibe coding</h3>
+          <p>I learnt how to AI vibe code by teaching myself and also learning from youtube videos and courses.</p>
+        </article>
+      </section>
     </section>
 
-    <section class="card">
-      <h2>Projects</h2>
-
-      <article class="project">
-        <h3>Portfolio Website</h3>
-        <p>A single-file personal portfolio page with responsive layout and clean design.</p>
-      </article>
-
-      <article class="project">
-        <h3>First Coding Game</h3>
-        <p>A Python game project where I practiced core gameplay logic and sound effects.</p>
-      </article>
-    </section>
-
-    <section class="card">
-      <h2>Contact</h2>
-      <p>
-        Email:
-        <a href="mailto:christopheryacoubian@gmail.com">christopheryacoubian@gmail.com</a>
-      </p>
-      <p>
-        GitHub:
-        <a href="https://github.com/Chrixzsol" target="_blank" rel="noreferrer">github.com/Chrixzsol</a>
-      </p>
+    <section class="page" id="goals">
+      <section class="card">
+        <h2>Goals</h2>
+        <article class="project">
+          <h3>My Singular Goal</h3>
+          <p>I have one singular goal. That goal is to succeed in the future by learning the future of AI and knowing how to use it for me to succeed.</p>
+        </article>
+      </section>
     </section>
 
     <p class="footer">Last updated: <span id="lastUpdated"></span></p>
@@ -167,6 +214,22 @@
       day: "numeric"
     });
     document.getElementById("lastUpdated").textContent = formatted;
+
+    const buttons = document.querySelectorAll(".nav-btn");
+    const pages = document.querySelectorAll(".page");
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const target = button.dataset.page;
+
+        buttons.forEach((b) => b.classList.remove("active"));
+        button.classList.add("active");
+
+        pages.forEach((page) => {
+          page.classList.toggle("active", page.id === target);
+        });
+      });
+    });
   </script>
 </body>
 </html>
